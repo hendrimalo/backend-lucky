@@ -1,0 +1,61 @@
+<!-- Main table -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <!-- <h3 class="card-title mt-2"><b>Transaction</b></h3> -->
+              <div style="text-align: right;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#input-modal">
+                  Add
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>Member</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% for(let i = 0; i < transaction.length; i++){ %>
+                    <tr>
+                      <td><%= i + 1 %></td>
+                      <td><%= transaction[i].date %></td>
+                      <td><%= transaction[i].member %></td>
+                      <td><%= transaction[i].product.name %></td>
+                      <td><%= transaction[i].product.price %></td>
+                      <td class="text-center">
+                        <form action="/transaction/<%= transaction[i]._id %>?_method=DELETE" method="POST">
+                          <a href="/transaction/edit/<%= transaction[i]._id %>" class="btn btn-info btn-sm">
+                            Edit
+                          </a>
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.table -->

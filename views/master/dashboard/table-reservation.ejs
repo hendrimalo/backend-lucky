@@ -1,0 +1,126 @@
+<!-- Main table -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">CPU Traffic</span>
+            <span class="info-box-number">
+              10
+              <small>%</small>
+            </span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Likes</span>
+            <span class="info-box-number">41,410</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+
+      <!-- fix for small devices only -->
+      <div class="clearfix hidden-md-up"></div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Sales</span>
+            <span class="info-box-number">760</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+          <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">New Members</span>
+            <span class="info-box-number">2,000</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Phone Number</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+                <% for(let i = 0; i < reservation.length; i++){ %>
+                  <tr>
+                    <td><%= i + 1 %></td>
+                    <td><%= reservation[i].username %></td>
+                    <td><%= reservation[i].phoneNumber %></td>
+                    <td><%= reservation[i].time %></td>
+                    <td class="text-center"><% if(reservation[i].status === 'Waiting'){ %>
+                      <span class="badge badge-warning">
+                        <%= reservation[i].status %>
+                      </span>
+                      <% } else if(reservation[i].status === 'Canceled') { %>
+                        <span class="badge badge-danger">
+                          <%= reservation[i].status %>
+                        </span>
+                      <% } else if(reservation[i].status === 'Success') { %>
+                        <span class="badge badge-success">
+                          <%= reservation[i].status %>
+                        </span>
+                      <% } %>
+                    </td>
+                    <td class="text-center">
+                      <form action="/reservation/<%= reservation[i]._id %>?_method=DELETE" method="POST">
+                        <a href="/reservation/edit/<%= reservation[i]._id %>" class="btn btn-info btn-sm">
+                          Edit
+                        </a>
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          Delete
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                <% } %>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.table -->

@@ -1,0 +1,59 @@
+<!-- Main table -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <!-- <h3 class="card-title mt-2"><b>Member</b></h3> -->
+              <div style="text-align: right;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#input-modal">
+                  Add
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% for(let i = 0; i < member.length; i++){ %>
+                    <tr>
+                      <td><%= i + 1 %></td>
+                      <td><%= member[i].username %></td>
+                      <td><%= member[i].role %></td>
+                      <td><%= member[i].status %></td>
+                      <td class="text-center">
+                        <form action="/member/<%= member[i]._id %>?_method=DELETE" method="POST">
+                          <a href="/member/edit/<%= member[i]._id %>" class="btn btn-info btn-sm">
+                            Edit
+                          </a>
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.table -->
