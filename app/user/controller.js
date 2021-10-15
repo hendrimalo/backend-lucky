@@ -12,6 +12,7 @@ module.exports = {
 
       res.render('master/user/view-user', {
         alert,
+        username: req.session.user.username,
         user,
       });
     } catch (error) {
@@ -20,9 +21,13 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { username, password, phoneNumber } = req.body;
+      const {
+        username, password, phoneNumber, email,
+      } = req.body;
 
-      const user = await User({ username, password, phoneNumber });
+      const user = await User({
+        username, password, phoneNumber, email,
+      });
       await user.save();
 
       req.flash('alertMessage', 'Success create new user');
@@ -30,7 +35,7 @@ module.exports = {
 
       res.redirect('/user');
     } catch (error) {
-      req.flash('alertMessage', 'Failed create new user');
+      req.flash('alertMessage', `Failed create new user ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/user');
@@ -47,7 +52,7 @@ module.exports = {
 
       res.redirect('/user');
     } catch (error) {
-      req.flash('alertMessage', 'Failed delete data user');
+      req.flash('alertMessage', `Failed delete data user ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/user');

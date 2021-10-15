@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Reservation = require('../reservation/model');
 
 module.exports = {
@@ -12,6 +13,7 @@ module.exports = {
 
       res.render('master/dashboard/view-dashboard', {
         alert,
+        username: req.session.user.username,
         reservation,
       });
     } catch (error) {

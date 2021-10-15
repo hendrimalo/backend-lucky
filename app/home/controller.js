@@ -27,7 +27,7 @@ module.exports = {
         if (validation) {
           req.session.user = {
             id: check._id,
-            email: check.username,
+            username: check.username,
             status: check.status,
           };
 
@@ -50,5 +50,10 @@ module.exports = {
 
       res.redirect('/');
     }
+  },
+  actionSignout: (req, res) => {
+    req.session.destroy();
+
+    res.redirect('/');
   },
 };

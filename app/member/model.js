@@ -32,4 +32,13 @@ memberSchema.pre('save', function (next) {
   next();
 });
 
+memberSchema.path('username').validate(async function (value) {
+  try {
+    const count = await this.model('Member').countDocuments({ username: value });
+    return !count;
+  } catch (err) {
+    throw err;
+  }
+}, (attr) => `${attr.value} sudah terdaftar`);
+
 module.exports = mongoose.model('Member', memberSchema);

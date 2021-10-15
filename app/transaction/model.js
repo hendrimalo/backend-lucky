@@ -1,25 +1,26 @@
 const mongoose = require('mongoose');
 
+const { ObjectId } = mongoose.Schema;
+
 const transactionSchema = mongoose.Schema({
   date: {
+    type: Date,
+  },
+  time: {
     type: String,
-    default: 'abc',
   },
   member: {
     type: String,
     require: [true, 'Please check input member'],
   },
-  product: {
-    name: {
-      type: String,
-      require: [true, 'Please check input name'],
-    },
-    price: {
-      type: String,
-      require: [true, 'Please check input price'],
-    },
+  payment: {
+    type: String,
+    require: [true, 'Please check input payment'],
   },
-
-});
+  productId: {
+    type: ObjectId,
+    ref: 'History Service',
+  },
+}, { timestamps: true });
 
 module.exports = mongoose.model('Transaction', transactionSchema);

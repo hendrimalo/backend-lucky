@@ -14,7 +14,7 @@ const serviceSchema = mongoose.Schema({
     maxLength: [60, 'Please check input desc'],
   },
   price: {
-    type: Number,
+    type: String,
     require: [true, 'Please check input price'],
   },
 }, { timestamps: true });

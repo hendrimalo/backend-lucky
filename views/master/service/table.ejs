@@ -14,7 +14,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>No</th>
@@ -33,7 +33,14 @@
                       <td><%= service[i].price %></td>
                       <td class="text-center">
                         <form action="/service/<%= service[i]._id %>?_method=DELETE" method="POST">
-                          <a href="/service/edit/<%= service[i]._id %>" class="btn btn-info btn-sm">
+                          <a href="javascript:void()" type="button" 
+                          class="btn btn-primary btn-sm btn-edit-modal" 
+                          style="margin-right: 6px;" 
+                          data-id="<%= service[i]._id %>"
+                          data-name="<%= service[i].name %>"
+                          data-desc="<%= service[i].desc %>"
+                          data-price="<%= Number(service[i].price.replace(/[^0-9.-]+/g,"")) %>"
+                          >
                             Edit
                           </a>
                           <button type="submit" class="btn btn-danger btn-sm">

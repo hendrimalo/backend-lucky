@@ -27,6 +27,6 @@ const reservationSchema = mongoose.Schema({
     default: 'Waiting',
   },
 
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Reservation', reservationSchema);

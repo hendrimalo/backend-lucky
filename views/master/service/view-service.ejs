@@ -28,6 +28,7 @@
     <%- include('../../parts/message.ejs') %>
     <%- include('./table') %>
     <%- include('./input') %>
+    <%- include('./edit') %>
   </div>
   <!-- /.content-wrapper -->
 
@@ -36,7 +37,19 @@
 </div>
 <%- include('../../parts/js.ejs') %>
 <script>
-  $('#example2').on('click', '.btn-edit-modal', function() {
-    //
+  $(function() {
+    $('#example1').on("click", '.btn-edit-modal', function() {
+      let id = $(this).data('id')
+      let name = $(this).data('name')
+      let desc = $(this).data('desc')
+      let price = $(this).data('price')
+
+      $('#edit-modal').modal('show')
+      
+      $('._id-parsing').val(id)
+      $('.name-parsing').val(name)
+      $('.desc-parsing').val(desc)            
+      $('.price-parsing').val(price)            
+    })
   })
 </script>

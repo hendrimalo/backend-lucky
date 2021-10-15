@@ -14,12 +14,13 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table id="example1" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>No</th>
                   <th>Username</th>
                   <th>Phone Number</th>
+                  <th>Email</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -29,6 +30,7 @@
                       <td><%= i + 1 %></td>
                       <td><%= user[i].username %></td>
                       <td><%= user[i].phoneNumber %></td>
+                      <td><%= user[i].email %></td>
                       <td class="text-center">
                         <form action="/user/<%= user[i]._id %>?_method=DELETE" method="POST">
                           <a href="/user/edit/<%= user[i]._id %>" class="btn btn-info btn-sm">

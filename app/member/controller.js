@@ -12,6 +12,7 @@ module.exports = {
 
       res.render('master/member/view-member', {
         alert,
+        username: req.session.user.username,
         member,
       });
     } catch (error) {
@@ -30,7 +31,33 @@ module.exports = {
 
       res.redirect('/member');
     } catch (error) {
-      req.flash('alertMessage', 'Failed create new member');
+      req.flash('alertMessage', `Failed create new member ${error}`);
+      req.flash('alertStatus', 'danger');
+
+      res.redirect('/member');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const {
+        id, username, password, role, status,
+      } = req.body;
+
+      await Member.findByIdAndUpdate(
+        { _id: id }, {
+          username,
+          password,
+          role,
+          status,
+        },
+      );
+
+      req.flash('alertMessage', 'Success edit data member');
+      req.flash('alertStatus', 'success');
+
+      res.redirect('/member');
+    } catch (error) {
+      req.flash('alertMessage', `Failed edit data member ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/member');
@@ -47,7 +74,7 @@ module.exports = {
 
       res.redirect('/member');
     } catch (error) {
-      req.flash('alertMessage', 'Failed delete data member');
+      req.flash('alertMessage', `Failed delete data member ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/member');

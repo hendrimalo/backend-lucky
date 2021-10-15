@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema({
     minLength: [6, 'Please check input password'],
     maxLength: [16, 'Please check input password'],
   },
+  email: {
+    type: String,
+    require: [true, 'Please check input email'],
+  },
   phoneNumber: {
     type: String,
     require: [true, 'Please check input Phone Number'],
@@ -28,5 +32,14 @@ userSchema.pre('save', function (next) {
   this.password = bcrypt.hashSync(this.password, HASH_ROUND);
   next();
 });
+
+userSchema.path('username').validate(async function (value) {
+  try {
+    const count = await this.model('User').countDocuments({ username: value });
+    return !count;
+  } catch (err) {
+    throw err;
+  }
+}, (attr) => `${attr.value} sudah terdaftar`);
 
 module.exports = mongoose.model('User', userSchema);

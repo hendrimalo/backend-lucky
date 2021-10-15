@@ -1,0 +1,45 @@
+<div class="modal fade" id="edit-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit data service</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" method="POST" action="/service?_method=PUT">
+            <div class="card-body">
+              <!-- Hidden _id parsing -->
+              <input type="text" class="form-control _id-parsing" name="id" required hidden>
+              <!-- ./Hidden _id parsing -->
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control name-parsing" name="name" placeholder="Name Product" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="desc" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control desc-parsing" name="desc" placeholder="Description" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">Price</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control price-parsing" name="price" placeholder="Price Product" required>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>

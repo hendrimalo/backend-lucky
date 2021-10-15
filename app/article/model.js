@@ -19,6 +19,6 @@ const articleSchema = mongoose.Schema({
     type: ObjectId,
     ref: 'Image',
   }],
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Article', articleSchema);

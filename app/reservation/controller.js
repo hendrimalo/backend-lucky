@@ -12,6 +12,7 @@ module.exports = {
 
       res.render('master/reservation/view-reservation', {
         alert,
+        username: req.session.user.username,
         reservation,
       });
     } catch (error) {
@@ -52,6 +53,24 @@ module.exports = {
       res.redirect('/reservation');
     } catch (error) {
       req.flash('alertMessage', `Failed delete data reservation ${error}`);
+      req.flash('alertStatus', 'danger');
+
+      res.redirect('/reservation');
+    }
+  },
+  actionStatus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.query;
+
+      await Reservation.findOneAndUpdate({ _id: id }, { status });
+
+      req.flash('alertMessage', 'Success edit status data reservation');
+      req.flash('alertStatus', 'success');
+
+      res.redirect('/reservation');
+    } catch (error) {
+      req.flash('alertMessage', `Failed edit status data reservation ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/reservation');

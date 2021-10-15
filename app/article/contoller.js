@@ -16,6 +16,7 @@ module.exports = {
 
       res.render('master/article/view-article', {
         alert,
+        username: req.session.user.username,
         article,
       });
     } catch (error) {
@@ -40,7 +41,6 @@ module.exports = {
 
       res.redirect('/article');
     } catch (error) {
-      console.log(error);
       req.flash('alertMessage', `Failed create new article ${error}`);
       req.flash('alertStatus', 'danger');
 
@@ -58,6 +58,9 @@ module.exports = {
           fs.unlink(path.join(`public/${image.image}`));
           image.remove();
         }).catch((error) => {
+          req.flash('alertMessage', `Failed delete new article ${error}`);
+          req.flash('alertStatus', 'danger');
+
           res.redirect('/article');
         });
       }
@@ -68,7 +71,7 @@ module.exports = {
 
       res.redirect('/article');
     } catch (error) {
-      req.flash('alertMessage', 'Failed delete new article');
+      req.flash('alertMessage', `Failed delete new article ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/article');

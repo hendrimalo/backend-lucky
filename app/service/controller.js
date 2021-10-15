@@ -12,6 +12,7 @@ module.exports = {
 
       res.render('master/service/view-service', {
         alert,
+        username: req.session.user.username,
         service,
       });
     } catch (error) {
@@ -21,16 +22,53 @@ module.exports = {
   actionCreate: async (req, res) => {
     try {
       const { name, desc, price } = req.body;
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'IDR',
+      });
 
-      const service = await Service({ name, desc, price });
-      await service.save();
+      await Service.create({
+        name,
+        desc,
+        price: formatter.format(price),
+      });
 
       req.flash('alertMessage', 'Success create new service');
       req.flash('alertStatus', 'success');
 
       res.redirect('/service');
     } catch (error) {
-      req.flash('alertMessage', 'Failed create new service');
+      req.flash('alertMessage', `Failed create new service ${error}`);
+      req.flash('alertStatus', 'danger');
+
+      res.redirect('/service');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const {
+        id, name, desc, price,
+      } = req.body;
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'IDR',
+      });
+
+      await Service.findByIdAndUpdate(
+        { _id: id },
+        {
+          name,
+          desc,
+          price: formatter.format(price),
+        },
+      );
+
+      req.flash('alertMessage', 'Success edit new service');
+      req.flash('alertStatus', 'success');
+
+      res.redirect('/service');
+    } catch (error) {
+      req.flash('alertMessage', `Failed edit data service ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/service');
@@ -47,7 +85,7 @@ module.exports = {
 
       res.redirect('/service');
     } catch (error) {
-      req.flash('alertMessage', 'Failed delete data service');
+      req.flash('alertMessage', `Failed delete data service ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/service');
