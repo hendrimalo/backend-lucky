@@ -1,9 +1,18 @@
 const Reservation = require('./model');
+const Member = require('../member/model');
+const Product = require('../service/model');
+const Transaction = require('../transaction/model');
+const History = require('../history service/model');
 
 module.exports = {
   index: async (req, res) => {
     try {
       const reservation = await Reservation.find();
+
+      const transaction = await Transaction.find().sort({ date: -1 })
+        .populate('productId');
+      const member = await Member.find();
+      const product = await Product.find().select('name price');
 
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
@@ -14,6 +23,9 @@ module.exports = {
         alert,
         username: req.session.user.username,
         reservation,
+        transaction,
+        member,
+        product,
       });
     } catch (error) {
       console.log(error);
@@ -41,18 +53,34 @@ module.exports = {
       res.redirect('/reservation');
     }
   },
-  actionDelete: async (req, res) => {
+  actionConfirmReservation: async (req, res) => {
     try {
-      const { id } = req.params;
+      const {
+        id, member, payment, productId,
+      } = req.body;
 
-      await Reservation.findOneAndDelete({ _id: id });
+      const product = await Product.findById({ _id: productId });
+      const history = await History.create({ name: product.name, price: product.price });
 
-      req.flash('alertMessage', 'Success delete data reservation');
+      const payload = {
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+        member,
+        productId: history._id,
+        payment,
+      };
+
+      const transaction = new Transaction(payload);
+      await transaction.save();
+
+      await Reservation.findOneAndUpdate({ _id: id }, { status: 'Success' });
+
+      req.flash('alertMessage', 'Success to confirm transaction');
       req.flash('alertStatus', 'success');
 
       res.redirect('/reservation');
     } catch (error) {
-      req.flash('alertMessage', `Failed delete data reservation ${error}`);
+      req.flash('alertMessage', `Failed to confirm transaction ${error}`);
       req.flash('alertStatus', 'danger');
 
       res.redirect('/reservation');

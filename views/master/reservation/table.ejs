@@ -32,7 +32,7 @@
                       <td><%= i + 1 %></td>
                       <td><%= reservation[i].username %></td>
                       <td><%= reservation[i].phoneNumber %></td>
-                      <td><%= reservation[i].date? reservation[i].date.toISOString().split('T')[0] : ''%></td>
+                      <td><%= reservation[i].date?? ''%></td>
                       <td><%= reservation[i].time %></td>
                       <td class="text-center"><% if(reservation[i].status === 'Waiting'){ %>
                         <span class="badge badge-warning">
@@ -56,12 +56,12 @@
                               Cancel
                             </button>
                           </form>
-                          <form style="display: inline-block;"
-                          action="/transaction/status/<%= reservation[i]._id %>?status=Success&_method=PUT" method="POST">
-                            <button class="btn btn-success btn-sm" type="submit">
-                              Confirm
-                            </button>
-                          </form>
+                          <a href="javascript:void()" type="button" 
+                          class="btn btn-success btn-sm btn-confirm-modal" 
+                          data-id="<%= reservation[i]._id %>"
+                          >
+                            Confirm
+                          </a>
                         <% } else { %>
                           <button class="btn btn-info btn-sm" type="submit">
                             Detail

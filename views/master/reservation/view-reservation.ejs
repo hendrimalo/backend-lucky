@@ -27,7 +27,9 @@
 
     <%- include('../../parts/message.ejs') %>
     <%- include('./table') %>
-    <%- include('./input') %>
+    <%- include('./input-reservation') %>
+    <%- include('./input-transaction') %>
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -37,9 +39,13 @@
 <%- include('../../parts/js.ejs') %>
 <script>
   $(function () {
-    //Edit modal
-    $('#example2').on('click', '.btn-edit-modal', function() {
-      //
+    //Confirm modal
+    $('#example1').on('click', '.btn-confirm-modal', function() {
+      let id = $(this).data('id')
+
+      $('#input-modal-transaction').modal('show')
+      
+      $('._id-parsing').val(id)
     })
     //Datepicker
     $('#reservationdate').datetimepicker({

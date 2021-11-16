@@ -57,19 +57,4 @@ module.exports = {
       res.redirect('/transaction');
     }
   },
-  actionDelete: async (req, res) => {
-    try {
-      const { id } = req.params;
-
-      await Transaction.findByIdAndDelete({ _id: id });
-
-      req.flash('alertMessage', 'Success delete data transaction');
-      req.flash('alertStatus', 'success');
-
-      res.redirect('/transaction');
-    } catch (error) {
-      req.flash('alertMessage', `Failed delete data transaction ${error}`);
-      req.flash('alertStatus', 'danger');
-    }
-  },
 };

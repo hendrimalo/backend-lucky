@@ -84,7 +84,7 @@
                     <td><%= i + 1 %></td>
                     <td><%= reservation[i].username %></td>
                     <td><%= reservation[i].phoneNumber %></td>
-                    <td><%= reservation[i].date? reservation[i].date.toISOString().split('T')[0] : ''%></td>
+                    <td><%= reservation[i].date?? ''%></td>
                     <td><%= reservation[i].time %></td>
                     <td class="text-center"><% if(reservation[i].status === 'Waiting'){ %>
                       <span class="badge badge-warning">

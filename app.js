@@ -23,6 +23,7 @@ const serviceRouter = require('./app/service/router');
 const articleRouter = require('./app/article/router');
 const reservationRouter = require('./app/reservation/router');
 const transactionRouter = require('./app/transaction/router');
+const reviewRouter = require('./app/review/router');
 
 // api
 const homeRouterAPI = require('./app/api/router');
@@ -58,6 +59,7 @@ app.use('/service', serviceRouter);
 app.use('/article', articleRouter);
 app.use('/reservation', reservationRouter);
 app.use('/transaction', transactionRouter);
+app.use('/review', reviewRouter);
 
 // api
 app.use(`${URL}`, homeRouterAPI);

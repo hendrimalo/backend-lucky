@@ -7,7 +7,8 @@ const Image = require('../image/model');
 module.exports = {
   index: async (req, res) => {
     try {
-      const article = await Article.find();
+      const article = await Article.find()
+        .populate('imageId');
 
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');

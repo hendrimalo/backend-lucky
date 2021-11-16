@@ -1,0 +1,58 @@
+<!-- Main table -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% for(let i = 0; i < review.length; i++){ %>
+                    <tr>
+                      <td><%= i + 1 %></td>
+                      <td><%= review[i].username %></td>
+                      <td><%= review[i].role %></td>
+                      <td><%= review[i].status %></td>
+                      <td class="text-center">
+                        <form action="/review/<%= review[i]._id %>?_method=DELETE" method="POST">
+                          <a href="javascript:void()" type="button" 
+                          class="btn btn-primary btn-sm btn-edit-modal" 
+                          style="margin-right: 6px;" 
+                          data-id="<%= review[i]._id %>"
+                          data-username="<%= review[i].username %>"
+                          data-role="<%= review[i].role %>"
+                          data-status="<%= review[i].status %>"
+                          >
+                            Edit
+                          </a>
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% } %>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.table -->

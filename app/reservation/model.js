@@ -14,7 +14,7 @@ const reservationSchema = mongoose.Schema({
     maxLength: [13, 'Please check input Phone Number'],
   },
   date: {
-    type: Date,
+    type: String,
     require: true,
   },
   time: {

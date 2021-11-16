@@ -31,18 +31,16 @@
                   <% for(let i = 0; i < transaction.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= transaction[i].date? transaction[i].date.toISOString().split('T')[0] : '' %></td>
+                      <td><%= transaction[i].date?? '' %></td>
                       <td><%= transaction[i].time %></td>
                       <td><%= transaction[i].member %></td>
                       <td><%= transaction[i].productId.name?? '' %></td>
                       <td><%= transaction[i].productId.price?? '' %></td>
                       <td><%= transaction[i].payment %></td>
                       <td class="text-center">
-                        <form action="/transaction/<%= transaction[i]._id %>?_method=DELETE" method="POST">
-                          <button type="submit" class="btn btn-danger btn-sm">
-                            Delete
-                          </button>
-                        </form>
+                        <button type="submit" class="btn btn-info btn-sm">
+                          Detail
+                        </button>
                       </td>
                     </tr>
                   <% } %>

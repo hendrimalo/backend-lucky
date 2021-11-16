@@ -30,7 +30,13 @@
                       <td><%= i + 1 %></td>
                       <td><%= article[i].title %></td>
                       <td><%= article[i].desc.slice(0, 35) %></td>
-                      <td><%= article[i].imageId %></td>
+                      <td class="text-center">
+                        <img
+                        src="http://localhost:3000/<%= article[i].imageId[0].image %>"
+                        alt="image article"
+                        style="width: 90px;"
+                        >
+                      </td>
                       <td class="text-center">
                         <form action="/article/<%= article[i]._id %>?_method=DELETE" method="POST">
                           <a href="/article/edit/<%= article[i]._id %>" class="btn btn-info btn-sm">

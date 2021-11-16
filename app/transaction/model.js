@@ -4,7 +4,7 @@ const { ObjectId } = mongoose.Schema;
 
 const transactionSchema = mongoose.Schema({
   date: {
-    type: Date,
+    type: String,
   },
   time: {
     type: String,
