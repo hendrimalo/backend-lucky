@@ -2,11 +2,13 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 // import and connect database mongoose
 mongoose.connect('mongodb://localhost:27017/lucky-barbershop', {
@@ -41,6 +43,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: { },
 }));
+app.use(cors());
 app.use(flash());
 app.use(methodOverride('_method'));
 app.use(logger('dev'));
@@ -49,6 +52,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, './node_modules/admin-lte/')));
+
+// body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // master
 app.use('/', homeRouter);

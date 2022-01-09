@@ -1,0 +1,91 @@
+<%- include('../../parts/head.ejs') %>
+
+<!-- wrapper -->
+<div class="wrapper">
+
+  <%- include('../../parts/navbar.ejs') %>
+  <%- include('../../parts/aside.ejs') %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Article</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/article">Article</a></li>
+              <li class="breadcrumb-item active">Edit</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <form class="form-horizontal" method="POST" action="/article/<%= article._id %>?_method=PUT">
+                <div class="card-body">
+                  <div class="row d-flex justify-content-center">
+                    <img
+                      src="http://localhost:3000/<%= article.imageId[0].image %>"
+                      alt="image article"
+                      style="margin-bottom: 18px; width: 100%; max-height: 280px;"
+                    >
+                  </div>
+                  <div class="form-group row">
+                    <label for="title" class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="title" placeholder="Title" value="<%= article.title %>" required>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="desc" class="col-sm-2 col-form-label">Desc</label>
+                    <div class="col-sm-10">
+                      <textarea id="summernote" name="desc">
+                        <%= article.desc %>
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="createdAt" class="col-sm-2 col-form-label">Created At</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="createdAt" placeholder="Created At" value="<%= article.createdAt %>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="updatedAt" class="col-sm-2 col-form-label">Updated At</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="updatedAt" placeholder="Updated At" value="<%= article.createdAt %>" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-end">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../../parts/control-sidebar.ejs') %>
+
+</div>
+<%- include('../../parts/js.ejs') %>
+<script>
+  $('#example2').on('click', '.btn-edit-modal', function() {
+    //
+  })
+</script>

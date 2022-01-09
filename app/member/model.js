@@ -18,6 +18,7 @@ const memberSchema = mongoose.Schema({
   },
   role: {
     type: String,
+    enum: ['Master', 'Admin'],
     require: [true, 'Please check input role'],
   },
   status: {

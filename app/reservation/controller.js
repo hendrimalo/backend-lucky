@@ -3,6 +3,7 @@ const Member = require('../member/model');
 const Product = require('../service/model');
 const Transaction = require('../transaction/model');
 const History = require('../history service/model');
+const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
   index: async (req, res) => {
@@ -42,13 +43,11 @@ module.exports = {
       });
       reservation.save();
 
-      req.flash('alertMessage', 'Success create data reservation');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'create', 'reservation');
 
       res.redirect('/reservation');
     } catch (error) {
-      req.flash('alertMessage', `Failed create data reservation  ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'create', 'reservation', error);
 
       res.redirect('/reservation');
     }
@@ -75,13 +74,11 @@ module.exports = {
 
       await Reservation.findOneAndUpdate({ _id: id }, { status: 'Success' });
 
-      req.flash('alertMessage', 'Success to confirm transaction');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'confirm', 'reservation');
 
       res.redirect('/reservation');
     } catch (error) {
-      req.flash('alertMessage', `Failed to confirm transaction ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'confirm', 'reservation', error);
 
       res.redirect('/reservation');
     }
@@ -93,13 +90,11 @@ module.exports = {
 
       await Reservation.findOneAndUpdate({ _id: id }, { status });
 
-      req.flash('alertMessage', 'Success edit status data reservation');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'edit', 'reservation');
 
       res.redirect('/reservation');
     } catch (error) {
-      req.flash('alertMessage', `Failed edit status data reservation ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'edit', 'reservation', error);
 
       res.redirect('/reservation');
     }

@@ -2,6 +2,7 @@ const Transaction = require('./model');
 const Member = require('../member/model');
 const Product = require('../service/model');
 const History = require('../history service/model');
+const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
   index: async (req, res) => {
@@ -46,13 +47,11 @@ module.exports = {
 
       await transaction.save();
 
-      req.flash('alertMessage', 'Success create data transaction');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'create', 'transaction');
 
       res.redirect('/transaction');
     } catch (error) {
-      req.flash('alertMessage', `Failed create data transaction ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'create', 'transaction', error);
 
       res.redirect('/transaction');
     }

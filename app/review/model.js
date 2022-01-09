@@ -8,11 +8,12 @@ const reviewSchema = mongoose.Schema({
   review: {
     type: String,
     require: [true, 'Plase check input review'],
-    maxLength: 60,
+    minLength: 4,
+    maxLength: 80,
   },
   rating: {
-    type: String,
-    enum: ['Kecewa', 'Tidak Puas', 'Kurang Puas', 'Puas', 'Sangat Puas'],
+    type: Number,
+    require: [true, 'Plase check input rating'],
   },
 });
 

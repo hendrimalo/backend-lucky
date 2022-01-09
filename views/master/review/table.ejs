@@ -11,8 +11,8 @@
                 <tr>
                   <th>No</th>
                   <th>Username</th>
-                  <th>Role</th>
-                  <th>Status</th>
+                  <th>Review</th>
+                  <th>Rating</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -20,25 +20,19 @@
                   <% for(let i = 0; i < review.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= review[i].username %></td>
-                      <td><%= review[i].role %></td>
-                      <td><%= review[i].status %></td>
+                      <td><%= review[i].name %></td>
+                      <td><%= review[i].review %></td>
+                      <td><%= review[i].rating %></td>
                       <td class="text-center">
-                        <form action="/review/<%= review[i]._id %>?_method=DELETE" method="POST">
-                          <a href="javascript:void()" type="button" 
-                          class="btn btn-primary btn-sm btn-edit-modal" 
-                          style="margin-right: 6px;" 
-                          data-id="<%= review[i]._id %>"
-                          data-username="<%= review[i].username %>"
-                          data-role="<%= review[i].role %>"
-                          data-status="<%= review[i].status %>"
-                          >
-                            Edit
-                          </a>
-                          <button type="submit" class="btn btn-danger btn-sm">
-                            Delete
-                          </button>
-                        </form>
+                        <a href="javascript:void()" type="button" 
+                        class="btn btn-info btn-sm btn-detail-modal" 
+                        style="margin-right: 6px;" 
+                        data-username="<%= review[i].name %>"
+                        data-review="<%= review[i].review %>"
+                        data-rating="<%= review[i].rating %>"
+                        >
+                          Detail
+                        </a>
                       </td>
                     </tr>
                   <% } %>

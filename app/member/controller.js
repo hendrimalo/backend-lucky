@@ -1,4 +1,5 @@
 const Member = require('./model');
+const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
   index: async (req, res) => {
@@ -23,16 +24,13 @@ module.exports = {
     try {
       const { username, password, role } = req.body;
 
-      const member = await Member({ username, password, role });
-      await member.save();
+      await Member.create({ username, password, role });
 
-      req.flash('alertMessage', 'Success create new member');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'create', 'member');
 
       res.redirect('/member');
     } catch (error) {
-      req.flash('alertMessage', `Failed create new member ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'create', 'member', error);
 
       res.redirect('/member');
     }
@@ -52,13 +50,11 @@ module.exports = {
         },
       );
 
-      req.flash('alertMessage', 'Success edit data member');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'edit', 'member');
 
       res.redirect('/member');
     } catch (error) {
-      req.flash('alertMessage', `Failed edit data member ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'edit', 'member', error);
 
       res.redirect('/member');
     }
@@ -69,13 +65,11 @@ module.exports = {
 
       await Member.findOneAndDelete({ _id: id });
 
-      req.flash('alertMessage', 'Success delete data member');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'delete', 'member');
 
       res.redirect('/member');
     } catch (error) {
-      req.flash('alertMessage', `Failed delete data member ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'delete', 'member', error);
 
       res.redirect('/member');
     }

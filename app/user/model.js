@@ -10,12 +10,6 @@ const userSchema = mongoose.Schema({
     minLength: [4, 'Please check input username'],
     maxLength: [16, 'Please check input username'],
   },
-  password: {
-    type: String,
-    require: [true, 'Please check input password'],
-    minLength: [6, 'Please check input password'],
-    maxLength: [16, 'Please check input password'],
-  },
   email: {
     type: String,
     require: [true, 'Please check input email'],
@@ -25,6 +19,12 @@ const userSchema = mongoose.Schema({
     require: [true, 'Please check input Phone Number'],
     minLength: [10, 'Please check input Phone Number'],
     maxLength: [13, 'Please check input Phone Number'],
+  },
+  password: {
+    type: String,
+    require: [true, 'Please check input password'],
+    minLength: [6, 'Please check input password'],
+    maxLength: [16, 'Please check input password'],
   },
 });
 

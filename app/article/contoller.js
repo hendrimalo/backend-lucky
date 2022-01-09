@@ -3,6 +3,7 @@ const path = require('path');
 
 const Article = require('./model');
 const Image = require('../image/model');
+const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
   index: async (req, res) => {
@@ -24,6 +25,27 @@ module.exports = {
       console.log(error);
     }
   },
+  detail: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const article = await Article.findById({ _id: id }).populate('imageId');
+
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+
+      const alert = { message: alertMessage, status: alertStatus };
+
+      res.render('master/article/view-edit', {
+        alert,
+        username: req.session.user.username,
+        article,
+      });
+    } catch (error) {
+      alertError(req, 'detail', 'article', error);
+
+      res.redirect('/article');
+    }
+  },
   actionCreate: async (req, res) => {
     try {
       const { title, desc } = req.body;
@@ -37,13 +59,11 @@ module.exports = {
         await article.save();
       }
 
-      req.flash('alertMessage', 'Success create new article');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'create', 'article');
 
       res.redirect('/article');
     } catch (error) {
-      req.flash('alertMessage', `Failed create new article ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'create', 'article', error);
 
       res.redirect('/article');
     }
@@ -59,21 +79,53 @@ module.exports = {
           fs.unlink(path.join(`public/${image.image}`));
           image.remove();
         }).catch((error) => {
-          req.flash('alertMessage', `Failed delete new article ${error}`);
-          req.flash('alertStatus', 'danger');
+          alertError(req, 'delete', 'article', error);
 
           res.redirect('/article');
         });
       }
       await article.remove();
 
-      req.flash('alertMessage', 'Success delete data article');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'delete', 'article');
 
       res.redirect('/article');
     } catch (error) {
-      req.flash('alertMessage', `Failed delete new article ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'delete', 'article', error);
+
+      res.redirect('/article');
+    }
+  },
+  actionDeletePhoto: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const article = await Article.findById({ _id: id }).populate('imageId');
+
+      await Image.findById({ _id: article.imageId[0]._id }).then((image) => {
+        fs.unlink(path.join(`public/${image.image}`));
+        image.remove();
+      }).catch((error) => {
+        alertError(req, 'delete', 'image article', error);
+
+        res.redirect('/article/:id');
+      });
+    } catch (error) {
+      alertError(req, 'delete', 'article', error);
+
+      res.redirect('/article/:id');
+    }
+  },
+  actionEdit: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, desc } = req.body;
+
+      await Article.findByIdAndUpdate({ _id: id }, { title, desc });
+
+      alertSuccess(req, 'edit', 'article');
+
+      res.redirect('/article');
+    } catch (error) {
+      alertError(req, 'edit', 'article', error);
 
       res.redirect('/article');
     }

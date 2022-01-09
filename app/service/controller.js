@@ -1,4 +1,5 @@
 const Service = require('./model');
+const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
   index: async (req, res) => {
@@ -22,24 +23,22 @@ module.exports = {
   actionCreate: async (req, res) => {
     try {
       const { name, desc, price } = req.body;
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'IDR',
-      });
+      // const formatter = new Intl.NumberFormat('en-US', {
+      //   style: 'currency',
+      //   currency: 'IDR',
+      // });
 
       await Service.create({
         name,
         desc,
-        price: formatter.format(price),
+        price,
       });
 
-      req.flash('alertMessage', 'Success create new service');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'create', 'service');
 
       res.redirect('/service');
     } catch (error) {
-      req.flash('alertMessage', `Failed create new service ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'create', 'service', error);
 
       res.redirect('/service');
     }
@@ -63,13 +62,11 @@ module.exports = {
         },
       );
 
-      req.flash('alertMessage', 'Success edit new service');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'edit', 'service');
 
       res.redirect('/service');
     } catch (error) {
-      req.flash('alertMessage', `Failed edit data service ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'edit', 'service', error);
 
       res.redirect('/service');
     }
@@ -80,13 +77,11 @@ module.exports = {
 
       await Service.findOneAndRemove({ _id: id });
 
-      req.flash('alertMessage', 'Success delete data service');
-      req.flash('alertStatus', 'success');
+      alertSuccess(req, 'delete', 'service');
 
       res.redirect('/service');
     } catch (error) {
-      req.flash('alertMessage', `Failed delete data service ${error}`);
-      req.flash('alertStatus', 'danger');
+      alertError(req, 'delete', 'service', error);
 
       res.redirect('/service');
     }
