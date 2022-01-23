@@ -12,6 +12,7 @@
                   <th>No</th>
                   <th>Username</th>
                   <th>Review</th>
+                  <th>Member</th>
                   <th>Rating</th>
                   <th>Actions</th>
                 </tr>
@@ -20,16 +21,14 @@
                   <% for(let i = 0; i < review.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= review[i].name %></td>
+                      <td><%= review[i].username %></td>
                       <td><%= review[i].review %></td>
+                      <td><%= review[i].transactionId.member %></td>
                       <td><%= review[i].rating %></td>
                       <td class="text-center">
-                        <a href="javascript:void()" type="button" 
-                        class="btn btn-info btn-sm btn-detail-modal" 
-                        style="margin-right: 6px;" 
-                        data-username="<%= review[i].name %>"
-                        data-review="<%= review[i].review %>"
-                        data-rating="<%= review[i].rating %>"
+                        <a
+                          href="/review/<%= review[i]._id %>"
+                          class="btn btn-info btn-sm btn-detail-modal"
                         >
                           Detail
                         </a>

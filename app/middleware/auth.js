@@ -5,8 +5,19 @@ const User = require('../user/model');
 module.exports = {
   isLoginAdmin: (req, res, next) => {
     if (req.session.user === null || req.session.user === undefined) {
-      // req.flash('alertMessage', 'Your session blablabla');
-      // req.flash('alertStatus', 'danger');
+      req.flash('alertMessage', 'Access Denied');
+      req.flash('alertStatus', 'danger');
+
+      res.redirect('/');
+    } else {
+      next();
+    }
+  },
+  isLoginMaster: (req, res, next) => {
+    if (req.session.user === null || req.session.user === undefined || req.session.user.role === 'Admin') {
+      req.flash('alertMessage', 'Access Denied');
+      req.flash('alertStatus', 'danger');
+
       res.redirect('/');
     } else {
       next();

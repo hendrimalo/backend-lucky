@@ -21,6 +21,7 @@
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -30,7 +31,12 @@
                       <td><%= i + 1 %></td>
                       <td><%= service[i].name %></td>
                       <td><%= service[i].desc %></td>
-                      <td><%= service[i].price %></td>
+                      <td><%= Intl.NumberFormat('en-US',{
+                        style: 'currency',
+                        currency: 'IDR',
+                        }).format(service[i].price) %>
+                      </td>
+                      <td><%= service[i].status %></td>
                       <td class="text-center">
                         <form action="/service/<%= service[i]._id %>?_method=DELETE" method="POST">
                           <a href="javascript:void()" type="button" 
@@ -40,6 +46,7 @@
                           data-name="<%= service[i].name %>"
                           data-desc="<%= service[i].desc %>"
                           data-price="<%= service[i].price %>"
+                          data-status="<%= service[i].status %>"
                           >
                             Edit
                           </a>

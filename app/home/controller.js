@@ -1,6 +1,4 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('../../config');
 const Member = require('../member/model');
 
 module.exports = {
@@ -27,13 +25,21 @@ module.exports = {
       if (check) {
         const validation = bcrypt.compareSync(password, check.password);
         if (validation) {
-          req.session.user = {
-            id: check._id,
-            username: check.username,
-            status: check.status,
-          };
+          if (check.status === 'Active') {
+            req.session.user = {
+              id: check._id,
+              username: check.username,
+              role: check.role,
+              status: check.status,
+            };
 
-          res.redirect('/dashboard');
+            res.redirect('/dashboard');
+          } else {
+            req.flash('alertMessage', 'Data member non active');
+            req.flash('alertStatus', 'danger');
+
+            res.redirect('/');
+          }
         } else {
           req.flash('alertMessage', 'Data member not found');
           req.flash('alertStatus', 'danger');

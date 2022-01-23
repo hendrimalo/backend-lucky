@@ -27,7 +27,6 @@
 
     <%- include('../../parts/message.ejs') %>
     <%- include('./table') %>
-    <%- include('./detail') %>
   </div>
   <!-- /.content-wrapper -->
 
@@ -35,18 +34,3 @@
 
 </div>
 <%- include('../../parts/js.ejs') %>
-<script>
-  $(function() {
-    $('#example1').on("click", '.btn-detail-modal', function() {
-      let username = $(this).data('username')
-      let review = $(this).data('review')
-      let rating = $(this).data('rating')
-
-      $('#detail-modal').modal('show')
-      
-      $('.username-parsing').val(username)
-      $('.review-parsing').val(review)            
-      $('.rating-parsing').val(rating)            
-    })
-  })
-</script>

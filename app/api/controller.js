@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { format } = require('date-fns');
 const config = require('../../config');
 const Service = require('../service/model');
 const Article = require('../article/model');
@@ -8,8 +9,6 @@ const Review = require('../review/model');
 const User = require('../user/model');
 const { validationReview, validationReservation } = require('../../config/validation');
 
-// const { config } = require('dotenv');
-
 module.exports = {
   home: async (req, res) => {
     try {
@@ -17,12 +16,10 @@ module.exports = {
         .select('_id name desc price');
 
       const article = await Article.find();
-      //   const review = await Review.find();
 
       res.status(200).json({
         service,
         article,
-        // review,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -83,7 +80,7 @@ module.exports = {
   },
   getService: async (req, res) => {
     try {
-      const service = await Service.find();
+      const service = await Service.find({ status: 'Public' });
 
       res.status(200).json({
         data: service,
@@ -105,7 +102,10 @@ module.exports = {
   },
   getReservation: async (req, res) => {
     try {
-      const reservation = await Reservation.find();
+      const reservation = await Reservation.find({
+        date: format(new Date(), 'yyyy-MM-dd'),
+        status: 'Waiting',
+      });
 
       res.status(200).json({
         data: reservation,
@@ -114,7 +114,7 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
-  reservation: async (req, res) => {
+  postReservation: async (req, res) => {
     try {
       const { errors, isValid } = validationReservation(req.body);
 
@@ -126,6 +126,7 @@ module.exports = {
 
       const reservation = await Reservation.create({
         username: req.body.username,
+        userStatus: req.body.userStatus,
         phoneNumber: req.body.phoneNumber,
         date: req.body.date,
         time: req.body.time,
@@ -138,11 +139,9 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
-  review: async (req, res) => {
+  postReview: async (req, res) => {
     try {
       const { errors, isValid } = validationReview(req.body);
-
-      // console.log(validationReview(req.body));
 
       if (!isValid) {
         return res.status(400).json({
@@ -151,19 +150,28 @@ module.exports = {
       }
 
       const reviewData = await Review.create({
-        name: req.body.name,
+        username: req.body.username,
         review: req.body.review,
         rating: req.body.rating,
+        transactionId: req.body.transactionId,
       });
 
       res.status(200).json({
         data: reviewData,
       });
     } catch (error) {
-      res.status(500).json({
-        message: error.message,
-      });
+      res.status(500).json({ message: error.message });
     }
   },
+  getUserTransaction: async (req, res) => {
+    try {
+      const reservation = await Reservation.find({ username: 'test front hc', userStatus: 'Member' });
 
+      res.status(200).json({
+        data: reservation,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };

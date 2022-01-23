@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
 const transactionSchema = mongoose.Schema({
+  reservationId: {
+    type: ObjectId,
+    ref: 'Reservation',
+  },
   date: {
     type: String,
   },
@@ -17,10 +21,13 @@ const transactionSchema = mongoose.Schema({
     type: String,
     require: [true, 'Please check input payment'],
   },
-  productId: {
-    type: ObjectId,
-    ref: 'History Service',
+  product: {
+    type: String,
   },
-}, { timestamps: true });
+  total: {
+    type: Number,
+  },
+
+});
 
 module.exports = mongoose.model('Transaction', transactionSchema);

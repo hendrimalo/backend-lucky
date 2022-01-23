@@ -27,6 +27,7 @@
 
     <%- include('../../parts/message.ejs') %>
     <%- include('./table-reservation') %>
+    <%- include('./detail') %>
   </div>
   <!-- /.content-wrapper -->
 
@@ -34,3 +35,22 @@
 
 </div>
 <%- include('../../parts/js.ejs') %>
+<script>
+  $(function () {
+    $('#example1').on("click", '.btn-detail-modal', function() {
+      let username = $(this).data('username')
+      let number = $(this).data('number')
+      let date = $(this).data('date')
+      let time = $(this).data('time')
+      let status = $(this).data('status')
+
+      $('#detail-modal').modal('show')
+      
+      $('.username-parsing').val(username)
+      $('.number-parsing').val(number)            
+      $('.date-parsing').val(date)            
+      $('.time-parsing').val(time)            
+      $('.status-parsing').val(status)            
+    })
+  })
+</script>

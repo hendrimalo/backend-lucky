@@ -4,13 +4,12 @@
     <div class="row">
       <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+          <span class="info-box-icon bg-info elevation-1"><i class="far fa-calendar-alt"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">CPU Traffic</span>
+            <span class="info-box-text">Today Reservation</span>
             <span class="info-box-number">
-              10
-              <small>%</small>
+              <%= todayReservation %>
             </span>
           </div>
           <!-- /.info-box-content -->
@@ -20,11 +19,11 @@
       <!-- /.col -->
       <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
-          <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+          <span class="info-box-icon bg-danger elevation-1"><i class="far fa-star"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Likes</span>
-            <span class="info-box-number">41,410</span>
+            <span class="info-box-text">Rating</span>
+            <span class="info-box-number"><%= rating[0]? rating[0].avg: '-' %></span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -40,8 +39,14 @@
           <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Sales</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-text">Today Income</span>
+            <span class="info-box-number">
+              <%= Intl.NumberFormat('en-US',{
+                style: 'currency',
+                currency: 'IDR',
+                }).format(todayIncome[0] ? todayIncome[0].total : 0) ?? ''
+              %>
+            </span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -53,8 +58,8 @@
           <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">New Members</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-text">Total Users</span>
+            <span class="info-box-number"><%= userTotal %></span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -65,6 +70,14 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
+          <div class="card-header">
+            <h3 class="card-title mt-2"><b>Today Reservation</b></h3>
+            <!-- <div style="text-align: right;">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#input-modal">
+                Add
+              </button>
+            </div> -->
+          </div>
           <div class="card-body">
             <table id="example1" class="table table-bordered table-hover">
               <thead>
@@ -115,9 +128,17 @@
                           </button>
                         </form>
                       <% } else { %>
-                        <button class="btn btn-info btn-sm" type="submit">
+                        <a href="javascript:void()" type="button" 
+                        class="btn btn-info btn-sm btn-detail-modal" 
+                        style="margin-right: 6px;" 
+                        data-username="<%= reservation[i].username %>"
+                        data-number="<%= reservation[i].phoneNumber %>"
+                        data-date="<%= reservation[i].date %>"
+                        data-time="<%= reservation[i].time %>"
+                        data-status="<%= reservation[i].status %>"
+                        >
                           Detail
-                        </button>
+                        </a>
                       <% } %>
                     </td>
                   </tr>

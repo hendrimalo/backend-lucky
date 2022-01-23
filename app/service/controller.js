@@ -14,6 +14,7 @@ module.exports = {
       res.render('master/service/view-service', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         service,
       });
     } catch (error) {
@@ -22,16 +23,15 @@ module.exports = {
   },
   actionCreate: async (req, res) => {
     try {
-      const { name, desc, price } = req.body;
-      // const formatter = new Intl.NumberFormat('en-US', {
-      //   style: 'currency',
-      //   currency: 'IDR',
-      // });
+      const {
+        name, desc, price, status,
+      } = req.body;
 
       await Service.create({
         name,
         desc,
         price,
+        status,
       });
 
       alertSuccess(req, 'create', 'service');
@@ -46,19 +46,16 @@ module.exports = {
   actionEdit: async (req, res) => {
     try {
       const {
-        id, name, desc, price,
+        id, name, desc, price, status,
       } = req.body;
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'IDR',
-      });
 
       await Service.findByIdAndUpdate(
         { _id: id },
         {
           name,
           desc,
-          price: formatter.format(price),
+          price,
+          status,
         },
       );
 

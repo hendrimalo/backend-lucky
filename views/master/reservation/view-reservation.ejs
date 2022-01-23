@@ -27,6 +27,7 @@
 
     <%- include('../../parts/message.ejs') %>
     <%- include('./table') %>
+    <%- include('./detail') %>
     <%- include('./input-reservation') %>
     <%- include('./input-transaction') %>
 
@@ -46,6 +47,24 @@
       $('#input-modal-transaction').modal('show')
       
       $('._id-parsing').val(id)
+    })
+    //Detail modal
+    $('#example1').on("click", '.btn-detail-modal', function() {
+      let username = $(this).data('username')
+      let userstatus = $(this).data('userstatus')
+      let number = $(this).data('number')
+      let date = $(this).data('date')
+      let time = $(this).data('time')
+      let status = $(this).data('status')
+
+      $('#detail-modal').modal('show')
+      
+      $('.username-parsing').val(username)
+      $('.userstatus-parsing').val(userstatus)
+      $('.number-parsing').val(number)            
+      $('.date-parsing').val(date)            
+      $('.time-parsing').val(time)            
+      $('.status-parsing').val(status)            
     })
     //Datepicker
     $('#reservationdate').datetimepicker({

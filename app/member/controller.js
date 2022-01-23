@@ -14,6 +14,7 @@ module.exports = {
       res.render('master/member/view-member', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         member,
       });
     } catch (error) {

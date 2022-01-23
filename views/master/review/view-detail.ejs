@@ -1,0 +1,88 @@
+<%- include('../../parts/head.ejs') %>
+
+<!-- wrapper -->
+<div class="wrapper">
+
+  <%- include('../../parts/navbar.ejs') %>
+  <%- include('../../parts/aside.ejs') %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Review</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/review">Review</a></li>
+              <li class="breadcrumb-item active">Detail</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="form-group row">
+                  <label for="username" class="col-sm-2 col-form-label">Username</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="username" value="<%= review.username %>" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="review" class="col-sm-2 col-form-label">Review</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Review" value="<%= review.review %>" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="review" class="col-sm-2 col-form-label">Member</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Member" value="<%= review.transactionId.member %>" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Rating" value="<%= review.rating %>" disabled>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="transactionId" class="col-sm-2 col-form-label">Transaction Id</label>
+                  <div class="col-sm-10">
+                    <a href="/transaction/<%= review.transactionId._id %>" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Detail Transaction</a>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-end">
+                <a href="/review" class="btn btn-primary">
+                  Back
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../../parts/control-sidebar.ejs') %>
+
+</div>
+<%- include('../../parts/js.ejs') %>
+<script>
+  $('#example2').on('click', '.btn-edit-modal', function() {
+    //
+  })
+</script>

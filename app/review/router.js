@@ -1,10 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const { index } = require('./controller');
-const { isLoginAdmin } = require('../middleware/auth');
+const { index, detail } = require('./controller');
+const { isLoginMaster } = require('../middleware/auth');
 
-router.use(isLoginAdmin);
+router.use(isLoginMaster);
 router.get('/', index);
+router.get('/:id', detail);
 
 module.exports = router;

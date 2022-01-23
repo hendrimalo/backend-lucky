@@ -1,8 +1,8 @@
+const { format } = require('date-fns');
 const Reservation = require('./model');
 const Member = require('../member/model');
 const Product = require('../service/model');
 const Transaction = require('../transaction/model');
-const History = require('../history service/model');
 const { alertError, alertSuccess } = require('../../utils/response');
 
 module.exports = {
@@ -10,9 +10,8 @@ module.exports = {
     try {
       const reservation = await Reservation.find();
 
-      const transaction = await Transaction.find().sort({ date: -1 })
-        .populate('productId');
-      const member = await Member.find();
+      const transaction = await Transaction.find().sort({ date: -1, time: -1 });
+      const member = await Member.find({ status: 'Active' });
       const product = await Product.find().select('name price');
 
       const alertMessage = req.flash('alertMessage');
@@ -23,6 +22,7 @@ module.exports = {
       res.render('master/reservation/view-reservation', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         reservation,
         transaction,
         member,
@@ -39,7 +39,11 @@ module.exports = {
       } = req.body;
 
       const reservation = await Reservation.create({
-        username, phoneNumber, date, time,
+        username,
+        userStatus: 'Non Member',
+        phoneNumber,
+        date: format(new Date(date), 'yyyy-MM-dd'),
+        time,
       });
       reservation.save();
 
@@ -59,20 +63,21 @@ module.exports = {
       } = req.body;
 
       const product = await Product.findById({ _id: productId });
-      const history = await History.create({ name: product.name, price: product.price });
 
       const payload = {
-        date: new Date().toISOString().split('T')[0],
-        time: new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+        reservationId: id,
+        date: format(new Date(), 'yyyy-MM-dd'),
+        time: format(new Date(), 'hh:mm a'),
         member,
-        productId: history._id,
         payment,
+        product: product.name,
+        total: product.price,
       };
 
       const transaction = new Transaction(payload);
       await transaction.save();
 
-      await Reservation.findOneAndUpdate({ _id: id }, { status: 'Success' });
+      await Reservation.findOneAndUpdate({ _id: id }, { status: 'Success', transactionId: transaction._id });
 
       alertSuccess(req, 'confirm', 'reservation');
 

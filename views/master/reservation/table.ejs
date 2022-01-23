@@ -19,6 +19,7 @@
                 <tr>
                   <th>No</th>
                   <th>Username</th>
+                  <th>User Status</th>
                   <th>Phone Number</th>
                   <th>Date</th>
                   <th>Time</th>
@@ -31,6 +32,7 @@
                     <tr>
                       <td><%= i + 1 %></td>
                       <td><%= reservation[i].username %></td>
+                      <td><%= reservation[i].userStatus %></td>
                       <td><%= reservation[i].phoneNumber %></td>
                       <td><%= reservation[i].date?? ''%></td>
                       <td><%= reservation[i].time %></td>
@@ -50,8 +52,11 @@
                       </td>
                       <td class="text-center">
                         <% if(reservation[i].status === 'Waiting') { %>
-                          <form style="display: inline-block;"
-                          action="/reservation/status/<%= reservation[i]._id %>?status=Canceled&_method=PUT" method="POST">
+                          <form
+                            style="display: inline-block;"
+                            action="/reservation/status/<%= reservation[i]._id %>?status=Canceled&_method=PUT"
+                            method="POST"
+                          >
                             <button class="btn btn-danger btn-sm" type="submit">
                               Cancel
                             </button>
@@ -63,9 +68,18 @@
                             Confirm
                           </a>
                         <% } else { %>
-                          <button class="btn btn-info btn-sm" type="submit">
+                          <a href="javascript:void()" type="button" 
+                          class="btn btn-info btn-sm btn-detail-modal" 
+                          style="margin-right: 6px;" 
+                          data-username="<%= reservation[i].username %>"
+                          data-userstatus="<%= reservation[i].userstatus %>"
+                          data-number="<%= reservation[i].phoneNumber %>"
+                          data-date="<%= reservation[i].date %>"
+                          data-time="<%= reservation[i].time %>"
+                          data-status="<%= reservation[i].status %>"
+                          >
                             Detail
-                          </button>
+                          </a>
                         <% } %>
                       </td>
                     </tr>

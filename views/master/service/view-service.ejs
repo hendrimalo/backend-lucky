@@ -43,13 +43,15 @@
       let name = $(this).data('name')
       let desc = $(this).data('desc')
       let price = $(this).data('price')
+      let status = $(this).data('status')
 
       $('#edit-modal').modal('show')
       
       $('._id-parsing').val(id)
       $('.name-parsing').val(name)
       $('.desc-parsing').val(desc)            
-      $('.price-parsing').val(price)            
+      $('.price-parsing').val(price) 
+      $('.status-parsing').val(status)           
     })
   })
 </script>

@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
+const { ObjectId } = mongoose.Schema;
+
 const reviewSchema = mongoose.Schema({
-  name: {
+  username: {
     type: String,
     require: [true, 'Please check input name'],
   },
@@ -14,6 +16,10 @@ const reviewSchema = mongoose.Schema({
   rating: {
     type: Number,
     require: [true, 'Plase check input rating'],
+  },
+  transactionId: {
+    type: ObjectId,
+    ref: 'Transaction',
   },
 });
 

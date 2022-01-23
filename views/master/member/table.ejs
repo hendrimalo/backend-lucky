@@ -30,23 +30,27 @@
                       <td><%= i + 1 %></td>
                       <td><%= member[i].username %></td>
                       <td><%= member[i].role %></td>
-                      <td><%= member[i].status %></td>
                       <td class="text-center">
-                        <form action="/member/<%= member[i]._id %>?_method=DELETE" method="POST">
-                          <a href="javascript:void()" type="button" 
-                          class="btn btn-primary btn-sm btn-edit-modal" 
-                          style="margin-right: 6px;" 
-                          data-id="<%= member[i]._id %>"
-                          data-username="<%= member[i].username %>"
-                          data-role="<%= member[i].role %>"
-                          data-status="<%= member[i].status %>"
-                          >
-                            Edit
-                          </a>
-                          <button type="submit" class="btn btn-danger btn-sm">
-                            Delete
-                          </button>
-                        </form>
+                        <% if(member[i].status === 'Active') { %>
+                          <span class="badge badge-success">
+                            <%= member[i].status %>
+                          </span>
+                        <% } else { %>
+                          <span class="badge badge-danger">
+                            <%= member[i].status %>
+                          </span>
+                        <% } %>
+                      </td>
+                      <td class="text-center">
+                        <a href="javascript:void()" type="button" 
+                        class="btn btn-primary btn-sm btn-edit-modal"  
+                        data-id="<%= member[i]._id %>"
+                        data-username="<%= member[i].username %>"
+                        data-role="<%= member[i].role %>"
+                        data-status="<%= member[i].status %>"
+                        >
+                          Edit
+                        </a>
                       </td>
                     </tr>
                   <% } %>

@@ -13,6 +13,7 @@ module.exports = {
       res.render('master/user/view-user', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         user,
       });
     } catch (error) {

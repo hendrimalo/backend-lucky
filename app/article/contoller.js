@@ -19,6 +19,7 @@ module.exports = {
       res.render('master/article/view-article', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         article,
       });
     } catch (error) {
@@ -38,6 +39,7 @@ module.exports = {
       res.render('master/article/view-edit', {
         alert,
         username: req.session.user.username,
+        role: req.session.user.role,
         article,
       });
     } catch (error) {

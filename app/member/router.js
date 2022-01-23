@@ -5,9 +5,9 @@ const router = express.Router();
 const {
   index, actionCreate, actionDelete, actionEdit,
 } = require('./controller');
-const { isLoginAdmin } = require('../middleware/auth');
+const { isLoginMaster } = require('../middleware/auth');
 
-router.use(isLoginAdmin);
+router.use(isLoginMaster);
 router.get('/', index);
 router.post('/', actionCreate);
 router.put('/', actionEdit);
