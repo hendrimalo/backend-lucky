@@ -9,6 +9,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('./config');
 
 // import and connect database mongoose
 mongoose.connect(process.env.MONGO_DB_PROD, {
