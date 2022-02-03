@@ -12,7 +12,7 @@ const cors = require('cors');
 require('./config');
 
 // import and connect database mongoose
-mongoose.connect(process.env.MONGO_DB_DEV, {
+mongoose.connect(process.env.MONGO_DB_PROD, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
