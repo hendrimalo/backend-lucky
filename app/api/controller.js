@@ -153,11 +153,14 @@ module.exports = {
         username: req.body.username,
         review: req.body.review,
         rating: req.body.rating,
-        transactionId: req.body.transactionId,
       });
 
+      const reservation = await Reservation.findByIdAndUpdate({
+        _id: req.body.reservationId,
+      }, { reviewId: reviewData._id });
+
       res.status(200).json({
-        data: reviewData,
+        data: reservation,
       });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -165,7 +168,26 @@ module.exports = {
   },
   getUserTransaction: async (req, res) => {
     try {
-      const reservation = await Reservation.find({ username: 'test front hc', userStatus: 'Member' });
+      const { username } = req.query;
+      const reservation = await Reservation.find({
+        username,
+        userStatus: 'Member',
+        status: 'Success',
+      }).populate('transactionId', 'date payment product total');
+
+      res.status(200).json({
+        data: reservation,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+  getDetailUserTransaction: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const reservation = await Reservation.findById({ _id: id })
+        .populate('transactionId')
+        .populate('reviewId');
 
       res.status(200).json({
         data: reservation,

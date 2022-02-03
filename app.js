@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 // import and connect database mongoose
-mongoose.connect('mongodb://localhost:27017/lucky-barbershop', {
+mongoose.connect(process.env.MONGO_DB_PROD, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

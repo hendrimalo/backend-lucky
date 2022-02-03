@@ -21,13 +21,13 @@
                   <% for(let i = 0; i < review.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= review[i].username %></td>
-                      <td><%= review[i].review %></td>
+                      <td><%= review[i].reviewId.username %></td>
+                      <td><%= review[i].reviewId.review %></td>
                       <td><%= review[i].transactionId.member %></td>
-                      <td><%= review[i].rating %></td>
+                      <td><%= review[i].reviewId.rating %></td>
                       <td class="text-center">
                         <a
-                          href="/review/<%= review[i]._id %>"
+                          href="/review/<%= review[i].reviewId._id %>"
                           class="btn btn-info btn-sm btn-detail-modal"
                         >
                           Detail

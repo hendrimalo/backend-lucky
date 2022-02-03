@@ -17,10 +17,6 @@ const reviewSchema = mongoose.Schema({
     type: Number,
     require: [true, 'Plase check input rating'],
   },
-  transactionId: {
-    type: ObjectId,
-    ref: 'Transaction',
-  },
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

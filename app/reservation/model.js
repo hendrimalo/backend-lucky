@@ -36,6 +36,10 @@ const reservationSchema = mongoose.Schema({
     type: ObjectId,
     ref: 'Transaction',
   },
+  reviewId: {
+    type: ObjectId,
+    ref: 'Review',
+  },
 
 });
 

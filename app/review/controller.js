@@ -1,9 +1,11 @@
+const Reservation = require('../reservation/model');
 const Review = require('./model');
 
 module.exports = {
   index: async (req, res) => {
     try {
-      const review = await Review.find()
+      const review = await Reservation.find({ reviewId: { $ne: null } })
+        .populate('reviewId')
         .populate('transactionId', 'member');
 
       const alertMessage = req.flash('alertMessage');
@@ -25,8 +27,9 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const review = await Review.findById({ _id: id })
-        .populate('transactionId', 'member');
+      const review = await Reservation.findOne({ reviewId: id })
+        .populate('reviewId')
+        .populate('transactionId');
 
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
@@ -39,7 +42,6 @@ module.exports = {
         role: req.session.user.role,
         review,
       });
-      console.log(review);
     } catch (error) {
       console.log(error);
     }
