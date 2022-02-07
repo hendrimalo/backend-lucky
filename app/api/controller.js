@@ -7,7 +7,10 @@ const Article = require('../article/model');
 const Reservation = require('../reservation/model');
 const Review = require('../review/model');
 const User = require('../user/model');
-const { validationReview, validationReservation } = require('../../config/validation');
+const {
+  validationReview,
+  validationReservation,
+} = require('../../config/validation');
 
 module.exports = {
   home: async (req, res) => {
@@ -124,17 +127,29 @@ module.exports = {
         });
       }
 
-      const reservation = await Reservation.create({
-        username: req.body.username,
-        userStatus: req.body.userStatus,
-        phoneNumber: req.body.phoneNumber,
+      const check = await Reservation.find({
         date: req.body.date,
         time: req.body.time,
       });
 
-      res.status(200).json({
-        data: reservation,
-      });
+      if (!check) {
+        const reservation = await Reservation.create({
+          username: req.body.username,
+          userStatus: req.body.userStatus,
+          phoneNumber: req.body.phoneNumber,
+          date: req.body.date,
+          time: req.body.time,
+        });
+
+        res.status(200).json({
+          data: reservation,
+        });
+      } else {
+        res.status(500).json({
+          message: `the schedule is already filled,
+           please change to another time`,
+        });
+      }
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
