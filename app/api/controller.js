@@ -127,29 +127,17 @@ module.exports = {
         });
       }
 
-      const check = await Reservation.find({
+      const reservation = await Reservation.create({
+        username: req.body.username,
+        userStatus: req.body.userStatus,
+        phoneNumber: req.body.phoneNumber,
         date: req.body.date,
         time: req.body.time,
       });
 
-      if (!check) {
-        const reservation = await Reservation.create({
-          username: req.body.username,
-          userStatus: req.body.userStatus,
-          phoneNumber: req.body.phoneNumber,
-          date: req.body.date,
-          time: req.body.time,
-        });
-
-        res.status(200).json({
-          data: reservation,
-        });
-      } else {
-        res.status(500).json({
-          message: `the schedule is already filled,
-           please change to another time`,
-        });
-      }
+      res.status(200).json({
+        data: reservation,
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
