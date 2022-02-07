@@ -37,6 +37,15 @@
 <%- include('../../parts/js.ejs') %>
 <script>
   $(function () {
+    //confirm modal
+    $('#example1').on('click', '.btn-confirm-modal', function() {
+      let id = $(this).data('id')
+
+      $('#input-modal-transaction').modal('show')
+      
+      $('._id-parsing').val(id)
+    })
+    //detail modal
     $('#example1').on("click", '.btn-detail-modal', function() {
       let username = $(this).data('username')
       let number = $(this).data('number')
