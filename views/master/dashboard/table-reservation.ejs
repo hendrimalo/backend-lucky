@@ -115,23 +115,27 @@
                     </td>
                     <td class="text-center">
                       <% if(reservation[i].status === 'Waiting') { %>
-                        <form style="display: inline-block;"
-                        action="/reservation/status/<%= reservation[i]._id %>?status=Canceled&_method=PUT" method="POST">
+                        <form 
+                          style="display: inline-block;"
+                          action="/reservation/status/<%= reservation[i]._id %>?status=Canceled&_method=PUT" 
+                          method="POST"
+                        >
                           <button class="btn btn-danger btn-sm" type="submit">
                             Cancel
                           </button>
                         </form>
-                        <form style="display: inline-block;"
-                        action="/transaction/status/<%= reservation[i]._id %>?status=Success&_method=PUT" method="POST">
-                          <button class="btn btn-success btn-sm" type="submit">
-                            Confirm
-                          </button>
-                        </form>
+                        <a href="javascript:void()" type="button" 
+                        class="btn btn-success btn-sm btn-confirm-modal" 
+                        data-id="<%= reservation[i]._id %>"
+                        >
+                          Confirm
+                        </a>
                       <% } else { %>
                         <a href="javascript:void()" type="button" 
                         class="btn btn-info btn-sm btn-detail-modal" 
                         style="margin-right: 6px;" 
                         data-username="<%= reservation[i].username %>"
+                        data-userstatus="<%= reservation[i].userStatus %>"
                         data-number="<%= reservation[i].phoneNumber %>"
                         data-date="<%= reservation[i].date %>"
                         data-time="<%= reservation[i].time %>"

@@ -27,6 +27,7 @@
 
     <%- include('../../parts/message.ejs') %>
     <%- include('./table-reservation') %>
+    <%- include('./input-transaction') %>
     <%- include('./detail') %>
   </div>
   <!-- /.content-wrapper -->
@@ -48,6 +49,7 @@
     //detail modal
     $('#example1').on("click", '.btn-detail-modal', function() {
       let username = $(this).data('username')
+      let userstatus = $(this).data('userstatus')
       let number = $(this).data('number')
       let date = $(this).data('date')
       let time = $(this).data('time')
@@ -56,6 +58,7 @@
       $('#detail-modal').modal('show')
       
       $('.username-parsing').val(username)
+      $('.userstatus-parsing').val(userstatus)
       $('.number-parsing').val(number)            
       $('.date-parsing').val(date)            
       $('.time-parsing').val(time)            
