@@ -16,4 +16,8 @@ function dateJakarta() {
   return momentTZ(new Date()).tz('Asia/Jakarta').format('YYYY-MM-DD');
 }
 
-module.exports = { getDates, dateJakarta };
+function threeDays() {
+  return moment(new Date()).add(3, 'days');
+}
+
+module.exports = { getDates, dateJakarta, threeDays };

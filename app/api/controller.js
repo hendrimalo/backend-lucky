@@ -7,6 +7,7 @@ const Article = require('../article/model');
 const Reservation = require('../reservation/model');
 const Review = require('../review/model');
 const User = require('../user/model');
+const Date = require('../../utils/date');
 const {
   validationReview,
   validationReservation,
@@ -106,7 +107,7 @@ module.exports = {
   getReservation: async (req, res) => {
     try {
       const reservation = await Reservation.find({
-        date: format(new Date(), 'yyyy-MM-dd'),
+        date: { $in: Date.getDates(Date.dateJakarta(), Date.threeDays()) },
         status: 'Waiting',
       });
 
