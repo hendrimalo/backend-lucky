@@ -8,24 +8,24 @@ const HASH_ROUND = 10;
 const userSchema = mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'Please check input username'],
+    required: [true, 'please check input username'],
     minLength: [4, 'min length input 4 character'],
     maxLength: [16, 'max length input 16 character'],
   },
   email: {
     type: String,
-    required: [true, 'Please check input email'],
+    required: [true, 'please check input email'],
     validate: [isEmail, 'invalid input email'],
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Please check input Phone Number'],
+    required: [true, 'please check input Phone Number'],
     minLength: [10, 'min length input 10 character'],
     maxLength: [13, 'max length input 16 character'],
   },
   password: {
     type: String,
-    required: [true, 'Please check input password'],
+    required: [true, 'please check input password'],
     minLength: [6, 'min length input 6 character'],
     maxLength: [16, 'max length input 16 character'],
   },

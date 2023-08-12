@@ -5,25 +5,25 @@ const { ObjectId } = mongoose.Schema;
 const reviewSchema = mongoose.Schema({
   userId: {
     type: ObjectId,
-    required: [true, 'Please check field userId'],
+    required: [true, 'please check field userId'],
     ref: 'User',
   },
   transactionId: {
     type: ObjectId,
-    required: [true, 'Please check field transactionId'],
+    required: [true, 'please check field transactionId'],
     ref: 'Transaction',
   },
   review: {
     type: String,
-    required: [true, 'Plase check input review'],
-    minLength: 4,
-    maxLength: 80,
+    required: [true, 'plase check input review'],
+    minLength: [4, 'min length input 4 character'],
+    maxLength: [100, 'max length input 100 character'],
   },
   rating: {
     type: Number,
-    required: [true, 'Plase check input rating'],
-    min: 0,
-    max: 5,
+    required: [true, 'plase check input rating'],
+    min: [0, 'min value input is 0'],
+    max: [5, 'max value input is 5'],
   },
 });
 

@@ -5,7 +5,7 @@ const { ObjectId } = mongoose.Schema;
 const reservationSchema = mongoose.Schema({
   userId: {
     type: ObjectId,
-    required: [true, 'Please check field userId'],
+    required: [true, 'please check field userId'],
     ref: 'User',
   },
   transactionId: {
@@ -14,11 +14,11 @@ const reservationSchema = mongoose.Schema({
   },
   date: {
     type: String,
-    required: true,
+    required: [true, 'please check input date'],
   },
   time: {
     type: String,
-    required: true,
+    required: [true, 'please check input time'],
   },
   status: {
     type: String,

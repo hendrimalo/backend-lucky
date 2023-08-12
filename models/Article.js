@@ -5,13 +5,13 @@ const { ObjectId } = mongoose.Schema;
 const articleSchema = mongoose.Schema({
   title: {
     type: String,
-    required: [true, 'Please check input title'],
+    required: [true, 'please check input title'],
     minLength: [8, 'min length input 8 character'],
     maxLength: [40, 'max length input 40 character'],
   },
   desc: {
     type: String,
-    required: [true, 'Please check input desc'],
+    required: [true, 'please check input desc'],
     minLength: [4, 'min length input 4 character'],
     maxLength: [40, 'max length input 40 character'],
   },

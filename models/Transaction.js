@@ -13,24 +13,24 @@ const transactionSchema = mongoose.Schema({
   },
   memberId: {
     type: ObjectId,
-    required: [true, 'Please check field memberId'],
+    required: [true, 'please check field memberId'],
     ref: 'Member',
   },
   date: {
     type: String,
-    required: [true, 'Please check field date'],
+    required: [true, 'please check field date'],
   },
   time: {
     type: String,
-    required: [true, 'Please check field time'],
+    required: [true, 'please check field time'],
   },
   payment: {
     type: String,
-    required: [true, 'Please check input payment'],
+    required: [true, 'please check input payment'],
   },
   service: {
     type: String,
-    required: [true, 'Please check input service'],
+    required: [true, 'please check input service'],
   },
   total: {
     type: Number,

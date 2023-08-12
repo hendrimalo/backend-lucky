@@ -8,20 +8,20 @@ const HASH_ROUND = 10;
 const memberSchema = mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'Please check input username'],
+    required: [true, 'please check input username'],
     minLength: [4, 'min length input 4 character'],
     maxLength: [16, 'max length input 16 character'],
   },
   password: {
     type: String,
-    required: [true, 'Please check input password'],
+    required: [true, 'please check input password'],
     minLength: [6, 'min length input 6 character'],
     maxLength: [16, 'max length input 16 character'],
   },
   role: {
     type: String,
     enum: ['Master', 'Admin'],
-    required: [true, 'Please check input role'],
+    required: [true, 'please check input role'],
   },
   status: {
     type: String,
