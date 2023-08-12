@@ -11,6 +11,23 @@
         "ecmaVersion": 12
     },
     "rules": {
-        "linebreak-style": 0
+        "linebreak-style": "off",
+        "no-unused-vars":"off",
+        "no-underscore-dangle": "off",
+        "consistent-return": "off",
+        "no-use-before-define": "off",
+        "camelcase": "off",
+        "no-shadow": "off",
+        "no-restricted-globals": "off",
+        "no-console": "off",
+        "import/order": "off",
+        "import/no-dynamic-require": "off",
+        "global-require": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "no-plusplus": "off",
+        "no-await-in-loop": "off",
+        "no-fallthrough": "off"
     }
 }
