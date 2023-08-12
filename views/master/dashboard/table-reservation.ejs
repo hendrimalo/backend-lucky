@@ -95,8 +95,8 @@
                 <% for(let i = 0; i < reservation.length; i++){ %>
                   <tr>
                     <td><%= i + 1 %></td>
-                    <td><%= reservation[i].username %></td>
-                    <td><%= reservation[i].phoneNumber %></td>
+                    <td><%= reservation[i].userId.username %></td>
+                    <td><%= reservation[i].userId.phoneNumber %></td>
                     <td><%= reservation[i].date?? ''%></td>
                     <td><%= reservation[i].time %></td>
                     <td class="text-center"><% if(reservation[i].status === 'Waiting'){ %>
@@ -134,8 +134,8 @@
                         <a href="javascript:void()" type="button" 
                         class="btn btn-info btn-sm btn-detail-modal" 
                         style="margin-right: 6px;" 
-                        data-username="<%= reservation[i].username %>"
-                        data-userstatus="<%= reservation[i].userStatus %>"
+                        data-username="<%= reservation[i].userId.username %>"
+                        data-userstatus="<%= reservation[i].userId.phoneNumber %>"
                         data-number="<%= reservation[i].phoneNumber %>"
                         data-date="<%= reservation[i].date %>"
                         data-time="<%= reservation[i].time %>"

@@ -19,7 +19,6 @@
                 <tr>
                   <th>No</th>
                   <th>Username</th>
-                  <th>User Status</th>
                   <th>Phone Number</th>
                   <th>Date</th>
                   <th>Time</th>
@@ -31,9 +30,8 @@
                   <% for(let i = 0; i < reservation.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= reservation[i].username %></td>
-                      <td><%= reservation[i].userStatus %></td>
-                      <td><%= reservation[i].phoneNumber %></td>
+                      <td><%= reservation[i].userId.username %></td>
+                      <td><%= reservation[i].userId.phoneNumber %></td>
                       <td><%= reservation[i].date?? ''%></td>
                       <td><%= reservation[i].time %></td>
                       <td class="text-center"><% if(reservation[i].status === 'Waiting'){ %>
@@ -63,7 +61,8 @@
                           </form>
                           <a href="javascript:void()" type="button" 
                           class="btn btn-success btn-sm btn-confirm-modal" 
-                          data-id="<%= reservation[i]._id %>"
+                          data-reservid="<%= reservation[i]._id %>"
+                          data-userid="<%= reservation[i].userId._id %>"
                           >
                             Confirm
                           </a>
@@ -71,9 +70,8 @@
                           <a href="javascript:void()" type="button" 
                           class="btn btn-info btn-sm btn-detail-modal" 
                           style="margin-right: 6px;" 
-                          data-username="<%= reservation[i].username %>"
-                          data-userstatus="<%= reservation[i].userStatus %>"
-                          data-number="<%= reservation[i].phoneNumber %>"
+                          data-username="<%= reservation[i].userId.username %>"
+                          data-number="<%= reservation[i].userId.phoneNumber%>"
                           data-date="<%= reservation[i].date %>"
                           data-time="<%= reservation[i].time %>"
                           data-status="<%= reservation[i].status %>"

@@ -21,7 +21,7 @@
                   <th>Date</th>
                   <th>Time</th>
                   <th>Member</th>
-                  <th>Product</th>
+                  <th>Service</th>
                   <th>Payment</th>
                   <th>Total</th>
                   <th>Actions</th>
@@ -33,8 +33,8 @@
                       <td><%= i + 1 %></td>
                       <td><%= transaction[i].date?? '' %></td>
                       <td><%= transaction[i].time %></td>
-                      <td><%= transaction[i].member %></td>
-                      <td><%= transaction[i].product?? '' %></td>
+                      <td><%= transaction[i].memberId.username %></td>
+                      <td><%= transaction[i].service?? '' %></td>
                       <td><%= transaction[i].payment %></td>
                       <td><%= Intl.NumberFormat('en-US',{
                         style: 'currency',

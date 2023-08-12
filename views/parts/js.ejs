@@ -32,6 +32,9 @@
 <script src="/adminlte/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/adminlte/dist/js/pages/dashboard.js"></script>
+<!-- Select2 -->
+<script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+
 
 <!-- DataTables  & Plugins -->
 <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -46,10 +49,13 @@
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
 <!-- Page specific script -->
 <script>
   $(function () {
     $('#summernote').summernote()
+    $('.select2').select2()
     $("#example1").DataTable({
       "paging": true,
       "lengthChange": false,

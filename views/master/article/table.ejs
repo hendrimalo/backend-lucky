@@ -31,11 +31,15 @@
                       <td><%= article[i].title %></td>
                       <td><%= article[i].desc.slice(0, 35) %></td>
                       <td class="text-center">
-                        <img
-                        src="https://lucky-barbershop.herokuapp.com/<%= article[i].imageId[0].image %>"
-                        alt="image article"
-                        style="width: 90px;"
-                        >
+                        <% if (article[i].imageId[0]) { %>
+                          <img
+                            src="http://localhost:3000/images/<%= article[i].imageId[0].image %>"
+                            alt="image article"
+                            style="width: 90px;"
+                          >
+                        <% } else { %>
+                          -
+                        <% } %>
                       </td>
                       <td class="text-center">
                         <form action="/article/<%= article[i]._id %>?_method=DELETE" method="POST">
