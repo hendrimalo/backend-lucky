@@ -7,29 +7,24 @@ const logger = require('morgan');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
-const mongoose = require('mongoose');
 const cors = require('cors');
-require('./config');
 
-// import and connect database mongoose
-mongoose.connect(process.env.MONGO_DB_PROD, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// connect DB
+require('./config/db');
 
 // master
-const homeRouter = require('./app/home/router');
-const dashboardRouter = require('./app/dashboard/router');
-const memberRouter = require('./app/member/router');
-const userRouter = require('./app/user/router');
-const serviceRouter = require('./app/service/router');
-const articleRouter = require('./app/article/router');
-const reservationRouter = require('./app/reservation/router');
-const transactionRouter = require('./app/transaction/router');
-const reviewRouter = require('./app/review/router');
+const homeRouter = require('./routes/home');
+const dashboardRouter = require('./routes/dashboard');
+const memberRouter = require('./routes/member');
+const userRouter = require('./routes/user');
+const serviceRouter = require('./routes/service');
+const articleRouter = require('./routes/article');
+const reservationRouter = require('./routes/reservation');
+const transactionRouter = require('./routes/transaction');
+const reviewRouter = require('./routes/review');
 
 // api
-const homeRouterAPI = require('./app/api/router');
+const homeRouterAPI = require('./routes/api');
 
 const app = express();
 const URL = '/api/v1';
@@ -47,7 +42,7 @@ app.use(session({
 app.use(cors());
 app.use(flash());
 app.use(methodOverride('_method'));
-app.use(logger('dev'));
+// app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
