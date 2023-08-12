@@ -1,5 +1,4 @@
 const moment = require('moment');
-const momentTZ = require('moment-timezone');
 
 function getDates(startDate, stopDate) {
   const dateArray = [];
@@ -12,12 +11,20 @@ function getDates(startDate, stopDate) {
   return dateArray;
 }
 
-function dateJakarta() {
-  return momentTZ(new Date()).tz('Asia/Jakarta').format('YYYY-MM-DD');
-}
-
 function threeDays() {
   return moment(new Date()).add(3, 'days');
 }
 
-module.exports = { getDates, dateJakarta, threeDays };
+function getNowDate() {
+  const date = moment(new Date()).format('YYYY-MM-DD');
+  return date;
+}
+
+function getNowTime() {
+  const time = moment(new Date()).format('hh:mm');
+  return time;
+}
+
+module.exports = {
+  getDates, threeDays, getNowDate, getNowTime,
+};
