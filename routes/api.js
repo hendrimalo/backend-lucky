@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
   home, signup, signin, postReservation, postReview, getReservation, getService,
-  getReview, getUserTransaction, getDetailUserTransaction,
+  getReview, getUserTransaction,
 } = require('../controllers/api');
 
 const { isLoginAPI } = require('../middleware/auth');
@@ -27,6 +27,5 @@ router.post('/review', isLoginAPI, postReview);
 
 // transaction
 router.get('/transaction', isLoginAPI, getUserTransaction);
-router.get('/transaction/:id', isLoginAPI, getDetailUserTransaction);
 
 module.exports = router;
