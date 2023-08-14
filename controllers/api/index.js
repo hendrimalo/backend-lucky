@@ -140,7 +140,7 @@ module.exports = {
       const { transactionId, review, rating } = req.body;
 
       const transaction = await Transaction.findById({ _id: transactionId });
-      if (transaction.userId !== req.user.id) {
+      if (transaction.userId.toString() !== req.user.id) {
         return res.status(400).json({
           message: 'not allowed to review this transaction',
         });
@@ -160,17 +160,6 @@ module.exports = {
     }
   },
   getUserTransaction: async (req, res) => {
-    try {
-      const transaction = await Transaction.find({ userId: req.user.id });
-
-      return res.status(200).json({
-        data: transaction,
-      });
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
-  },
-  getDetailUserTransaction: async (req, res) => {
     try {
       const transaction = await Transaction.find({ userId: req.user.id });
 
