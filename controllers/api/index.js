@@ -120,8 +120,13 @@ module.exports = {
 
       const user = await User.findOne({ _id: req.user.id });
 
+      const reservation = await Reservation.find({ userId: user._id, status: 'Waiting' });
+      if (reservation.length) {
+        return res.status(400).json({ message: 'reservation status is still available, contact the admin to change the reservation date' });
+      }
+
       validator.validateReservation(date, 'YYYY-MM-DD', time, 'HH:mm');
-      const reservation = await Reservation.create({
+      await Reservation.create({
         userId: user._id,
         date,
         time,

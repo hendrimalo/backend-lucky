@@ -44,8 +44,13 @@ module.exports = {
     try {
       const { userId, date, time } = req.body;
 
+      const reservation = await Reservation.find({ userId, status: 'Waiting' });
+      if (reservation.length) {
+        throw new Error('reservation status is still available, complete the reservation manually');
+      }
+
       validateReservation(date, 'MM/DD/YYYY', time, 'HH:mm a');
-      const reservation = await Reservation.create({
+      await Reservation.create({
         userId,
         date: getNowDate(),
         time,
