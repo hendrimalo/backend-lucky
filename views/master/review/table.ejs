@@ -10,9 +10,8 @@
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Username</th>
+                  <th>Transaction Date</th>
                   <th>Review</th>
-                  <th>Member</th>
                   <th>Rating</th>
                   <th>Actions</th>
                 </tr>
@@ -21,13 +20,12 @@
                   <% for(let i = 0; i < review.length; i++){ %>
                     <tr>
                       <td><%= i + 1 %></td>
-                      <td><%= review[i].reviewId.username %></td>
-                      <td><%= review[i].reviewId.review %></td>
-                      <td><%= review[i].transactionId.member %></td>
-                      <td><%= review[i].reviewId.rating %></td>
+                      <td><%= review[i].transactionId.date %></td>
+                      <td><%= review[i].review %></td>
+                      <td><%= review[i].rating %></td>
                       <td class="text-center">
                         <a
-                          href="/review/<%= review[i].reviewId._id %>"
+                          href="/review/<%= review[i]._id %>"
                           class="btn btn-info btn-sm btn-detail-modal"
                         >
                           Detail

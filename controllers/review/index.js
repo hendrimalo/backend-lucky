@@ -1,4 +1,4 @@
-const { Reservation } = require('../../models');
+const { Review } = require('../../models');
 const { limit } = require('../../config/params');
 const { alertError, alertSuccess } = require('../../utils/response');
 
@@ -8,9 +8,9 @@ module.exports = {
       const { page } = req.query;
       const offside = (page - 1) * limit;
 
-      const review = await Reservation.find({ reviewId: { $ne: null } })
-        .populate('reviewId')
-        .populate('transactionId', 'member')
+      const review = await Review.find()
+        .populate('userId', 'username')
+        .populate('transactionId', 'date')
         .limit(limit)
         .skip(offside);
 
@@ -33,9 +33,9 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const review = await Reservation.findOne({ reviewId: id })
-        .populate('reviewId')
-        .populate('transactionId');
+      const review = await Review.findById({ _id: id })
+        .populate('userId')
+        .populate('transactionId', 'member date');
 
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
